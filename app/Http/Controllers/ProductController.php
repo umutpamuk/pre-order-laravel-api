@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\api\v1\Product;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Services\Product\ProductService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 

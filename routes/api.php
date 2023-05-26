@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\PreOrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\v1\Auth\AuthController;
-use App\Http\Controllers\api\v1\Order\PreOrderController;
-use App\Http\Controllers\api\v1\Cart\CartController;
-use App\Http\Controllers\api\v1\Product\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
