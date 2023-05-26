@@ -21,6 +21,15 @@ class Category extends Model
     ];
 
     /**
+     * @var string[]
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    /**
      * @return HasMany
      */
     public function products() : HasMany
