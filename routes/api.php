@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\Auth\AuthController;
 use App\Http\Controllers\api\v1\Order\PreOrderController;
-
+use App\Http\Controllers\api\v1\Cart\CartController;
+use App\Http\Controllers\api\v1\Product\ProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,10 +25,26 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
+        Route::group(['controller' => CartController::class], function () {
+            Route::post('/cart/list', 'list')->name('cart.list');
+            Route::post('/cart/add', 'add')->name('cart.add');
+            Route::post('/cart/remove', 'remove')->name('cart.remove');
+            Route::post('/cart/update', 'update')->name('cart.update');
+        });
+
+
         Route::group(['controller' => PreOrderController::class], function () {
-            Route::get('/pre-orders', 'index')->name('pre-orders');
+            Route::get('/pre/orders', 'index')->name('pre.orders');
         });
     });
+
+
+
+    Route::group(['controller' => ProductController::class], function () {
+        Route::get('/products', 'index')->name('products.index');
+        Route::get('/products/available', 'available')->name('products.available');
+    });
+
 
 
 
