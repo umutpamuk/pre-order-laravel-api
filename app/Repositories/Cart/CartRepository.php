@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Cache;
 
 class CartRepository implements CartRepositoryInterface
 {
+    /**
+     * @param string $token
+     * @return array|mixed
+     */
     public function get(string $token)
     {
         $cacheKey = 'cart:' . $token;
@@ -14,6 +18,12 @@ class CartRepository implements CartRepositoryInterface
         return Cache::get($cacheKey);
     }
 
+    /**
+     * @param string $token
+     * @param array $cart
+     * @param int $expTime
+     * @return void
+     */
     public function put(string $token, array $cart, int $expTime = 600)
     {
         $cacheKey = 'cart:' . $token;
@@ -21,16 +31,29 @@ class CartRepository implements CartRepositoryInterface
         Cache::put($cacheKey, $cart, $expTime);
     }
 
+    /**
+     * @param int $productId
+     * @param int $totalQuantity
+     * @return bool
+     */
     public function isTheStockEnough(int $productId, int $totalQuantity) : bool
     {
         return $this->findOrFail($productId)->stock >= $totalQuantity;
     }
 
+    /**
+     * @param int $productId
+     * @return mixed
+     */
     public function findOrFail(int $productId)
     {
         return Product::findOrFail($productId);
     }
 
+    /**
+     * @param string $token
+     * @return array|null
+     */
     public function list(string $token)
     {
         $carts = $this->get($token) ?? [];
@@ -59,6 +82,11 @@ class CartRepository implements CartRepositoryInterface
         }
     }
 
+    /**
+     * @param string $token
+     * @param int|null $productId
+     * @return bool
+     */
     public function remove(string $token, int $productId = null) : bool
     {
         $cart = $this->get($token);
@@ -86,6 +114,12 @@ class CartRepository implements CartRepositoryInterface
 
     }
 
+    /**
+     * @param string $token
+     * @param int $productId
+     * @param int $quantity
+     * @return bool
+     */
     public function update(string $token, int $productId, int $quantity) : bool
     {
         $cart = $this->get($token);
