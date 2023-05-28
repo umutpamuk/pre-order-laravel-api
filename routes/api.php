@@ -32,9 +32,8 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('/cart/update', 'update')->name('cart.update');
         });
 
-
         Route::group(['controller' => PreOrderController::class], function () {
-            Route::get('/pre/orders', 'index')->name('pre.orders');
+            Route::post('/pre-order', 'store')->name('pre-order');
         });
     });
 

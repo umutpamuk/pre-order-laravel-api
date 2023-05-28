@@ -2,62 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PreOrderStoreRequest;
+use App\Services\Cart\CartService;
+use App\Services\Order\OrderService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
+use App\Traits\ApiResponder;
 
 class PreOrderController extends Controller
 {
+    use ApiResponder;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var CartService
      */
-    public function index()
+    protected CartService $cartService;
+    /**
+     * @var OrderService
+     */
+    protected OrderService $orderService;
+
+    /**
+     * @param CartService $cartService
+     * @param OrderService $orderService
+     */
+    public function __construct(
+        CartService $cartService,
+        OrderService $orderService
+    )
     {
-        //
+        $this->cartService = $cartService;
+        $this->orderService = $orderService;
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param PreOrderStoreRequest $preOrderStoreRequest
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(PreOrderStoreRequest $preOrderStoreRequest) : JsonResponse
     {
-        //
-    }
+        $user  = Auth::user();
+        $token = $user->currentAccessToken()->token;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $getCartData  = $this->cartService->list($token)->getData()->data;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if (!$getCartData) {
+            return $this->sendError('Your cart product was not found.');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $carts = $getCartData->cart;
+        $totalAmount = $getCartData->total_amount;
+
+        return $this->orderService->placeOrder($user->id, $token, $totalAmount, $preOrderStoreRequest, $carts);
     }
 }
