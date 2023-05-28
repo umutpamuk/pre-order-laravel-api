@@ -24,7 +24,7 @@ class CartRepository implements CartRepositoryInterface
      * @param int $expTime
      * @return void
      */
-    public function put(string $token, array $cart, int $expTime = 600)
+    public function put(string $token, array $cart, int $expTime = 6000)
     {
         $cacheKey = 'cart:' . $token;
 
@@ -63,6 +63,15 @@ class CartRepository implements CartRepositoryInterface
         foreach ($carts as $productId => $quantity) {
 
             $product = $this->findOrFail($productId);
+
+            $stockControl = $this->isTheStockEnough($product->id, $quantity);
+
+            if (!$stockControl) {
+                unset($carts[$product->id]);
+                $this->put($token, $carts);
+
+                continue;
+            }
 
             $resourceData[] = [
                 'product_id' => $product->id,
