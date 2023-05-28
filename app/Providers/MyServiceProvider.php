@@ -14,6 +14,8 @@ use App\Services\Order\OrderService;
 use App\Services\Order\OrderServiceInterface;
 use App\Services\Product\ProductService;
 use App\Services\Product\ProductServiceInterface;
+use App\Services\Twilio\TwilioService;
+use App\Services\Twilio\TwilioServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class MyServiceProvider extends ServiceProvider
@@ -33,6 +35,8 @@ class MyServiceProvider extends ServiceProvider
 
         app()->bind(OrderServiceInterface::class, OrderService::class);
         app()->bind(OrderRepositoryInterface::class, OrderRepository::class);
+
+        app()->bind(TwilioServiceInterface::class, TwilioService::class);
     }
 
     /**
