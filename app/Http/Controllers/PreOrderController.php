@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Requests\PreOrderStoreRequest;
+use App\Models\Order;
 use App\Services\Cart\CartService;
 use App\Services\Order\OrderService;
 use Illuminate\Http\JsonResponse;
@@ -33,6 +35,15 @@ class PreOrderController extends Controller
     {
         $this->cartService = $cartService;
         $this->orderService = $orderService;
+    }
+
+    public function index()
+    {
+        $awaitingOrders = Order::where('status', OrderStatusEnum::AWAITING)
+            ->with('user', 'orderItems', 'orderDetails', 'orderItems.product', 'orderItems.product.category')
+            ->get();
+
+        return response()->json($awaitingOrders);
     }
 
     /**

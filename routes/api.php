@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TwilioSMSController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,8 +34,12 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         Route::group(['controller' => PreOrderController::class], function () {
-            Route::post('/pre-order', 'store')->name('pre-order');
+            Route::get('/pre-orders', 'index')->name('pre-orders.index');
+            Route::post('/pre-order', 'store')->name('pre-order.store');
         });
+
+
+
     });
 
 
