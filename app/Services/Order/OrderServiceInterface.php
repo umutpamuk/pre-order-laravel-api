@@ -15,4 +15,6 @@ interface OrderServiceInterface
      * @return JsonResponse
      */
     public function placeOrder(int $userId, string $token, int $totalAmount, $preOrderStoreRequest, $carts) : JsonResponse;
+
+    public function getAwaitingOrders();
 }

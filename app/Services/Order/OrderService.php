@@ -2,6 +2,8 @@
 
 namespace App\Services\Order;
 
+use App\Enums\OrderStatusEnum;
+use App\Models\Order;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoriesInterface;
@@ -101,6 +103,11 @@ class OrderService implements OrderServiceInterface
             DB::rollBack();
             return $this->sendError($exception->getMessage());
         }
+    }
+
+    public function getAwaitingOrders()
+    {
+        return Order::where('status', OrderStatusEnum::AWAITING)->get();
     }
 
 }
