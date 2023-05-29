@@ -2,12 +2,15 @@
 
 namespace App\Services\Twilio;
 
+use Illuminate\Http\JsonResponse;
+
 interface TwilioServiceInterface
 {
+
     /**
-     * @param int $receiverNumber
+     * @param string $receiverNumber
      * @param string $message
-     * @return bool
+     * @return JsonResponse
      */
-    public function sendSms(string $receiverNumber, string $message) : bool;
+    public function sendSms(string $receiverNumber, string $message) : JsonResponse;
 }

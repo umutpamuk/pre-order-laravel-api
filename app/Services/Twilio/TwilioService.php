@@ -2,29 +2,38 @@
 
 namespace App\Services\Twilio;
 
+use Illuminate\Http\JsonResponse;
 use Twilio\Rest\Client;
+use App\Traits\ApiResponder;
 
 class TwilioService implements TwilioServiceInterface
 {
+    use ApiResponder;
 
-    public function sendSms(string $receiverNumber, string $message) : bool
+
+    /**
+     * @param string $receiverNumber
+     * @param string $message
+     * @return JsonResponse
+     */
+    public function sendSms(string $receiverNumber, string $message) : JsonResponse
     {
 
         try {
 
-            $account_sid = getenv("TWILIO_SID");
-            $auth_token = getenv("TWILIO_TOKEN");
-            $twilio_number = getenv("TWILIO_FROM");
+            $sId = env("TWILIO_SID");
+            $token = env("TWILIO_TOKEN");
+            $from = env("TWILIO_FROM");
 
-            $client = new Client($account_sid, $auth_token);
+            $client = new Client($sId, $token);
             $client->messages->create($receiverNumber, [
-                'from' => $twilio_number,
+                'from' => $from,
                 'body' => $message]);
 
-            dd('SMS Sent Successfully.');
+            return $this->sendSuccess('SMS Sent Successfully.');
 
         } catch (\Exception $e) {
-            dd("Error: ". $e->getMessage());
+            return $this->sendError($e->getMessage());
         }
     }
 

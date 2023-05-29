@@ -33,4 +33,10 @@ interface OrderRepositoryInterface
      */
     public function getAwaitingOrders(array $relationships = []) : Collection;
 
+    /**
+     * @param int $id
+     * @return Order
+     */
+    public function findOrFail(int $id) : Order;
+
 }

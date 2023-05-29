@@ -2,7 +2,9 @@
 
 namespace App\Services\Order;
 
+use App\Enums\OrderStatusEnum;
 use App\Http\Resources\PreOrderResource;
+use App\Models\Order;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoriesInterface;
@@ -53,7 +55,8 @@ class OrderService implements OrderServiceInterface
      * @param $carts
      * @return JsonResponse
      */
-    public function placeOrder(int $userId, string $token, int $totalAmount, $preOrderStoreRequest, $carts) : JsonResponse
+    public function placeOrder(int $userId, string $token, int $totalAmount, $preOrderStoreRequest, $carts
+    ) : JsonResponse
     {
         try {
             DB::beginTransaction();
@@ -127,6 +130,22 @@ class OrderService implements OrderServiceInterface
         $responseData = PreOrderResource::collection($awaitingOrders);
 
         return response()->json($responseData);
+    }
+
+    /**
+     * @param int $orderId
+     * @return Order|null
+     */
+    public function awaitingToApprove(int $orderId): ?Order
+    {
+        $order = $this->orderRepository->findOrFail($orderId);
+
+        if ($order->status === 'awaiting') {
+            $order->update(['status' => OrderStatusEnum::APPROVED]);
+            return $order;
+        } else {
+            return null;
+        }
     }
 
 }

@@ -68,4 +68,13 @@ class OrderRepository implements OrderRepositoryInterface
         }
     }
 
+    /**
+     * @param int $id
+     * @return Order
+     */
+    public function findOrFail(int $id): Order
+    {
+        return Order::findOrFail($id);
+    }
+
 }

@@ -35,6 +35,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['controller' => PreOrderController::class], function () {
             Route::get('/pre-orders', 'index')->name('pre-orders.index');
+            Route::post('/pre-order/approve', 'awaitingToApprove')->name('pre-order.approve');
             Route::post('/pre-order', 'store')->name('pre-order.store');
         });
 
