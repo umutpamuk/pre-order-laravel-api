@@ -21,13 +21,13 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::post('/auth/login', [LoginController::class, 'login']);
-    Route::post('/auth/register', [RegisterController::class, 'register']);
+    Route::post('/auth/login', [LoginController::class, 'login'])->name('login');
+    Route::post('/auth/register', [RegisterController::class, 'register'])->name('register');
 
     Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
         Route::group(['controller' => CartController::class], function () {
-            Route::post('/cart/list', 'list')->name('cart.list');
+            Route::get('/cart/list', 'list')->name('cart.list');
             Route::post('/cart/add', 'add')->name('cart.add');
             Route::post('/cart/remove', 'remove')->name('cart.remove');
             Route::post('/cart/update', 'update')->name('cart.update');
