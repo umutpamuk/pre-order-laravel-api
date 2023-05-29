@@ -3,6 +3,7 @@
 namespace App\Services\Order;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 
 interface OrderServiceInterface
 {
@@ -16,5 +17,14 @@ interface OrderServiceInterface
      */
     public function placeOrder(int $userId, string $token, int $totalAmount, $preOrderStoreRequest, $carts) : JsonResponse;
 
-    public function getAwaitingOrders();
+    /**
+     * @param array $relationships
+     * @return Collection
+     */
+    public function getAwaitingOrders(array $relationships = []) : Collection;
+
+    /**
+     * @return JsonResponse
+     */
+    public function getAwaitingOrdersJson() : JsonResponse;
 }

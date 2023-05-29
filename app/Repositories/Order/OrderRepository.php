@@ -6,6 +6,7 @@ use App\Enums\OrderStatusEnum;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\OrderItem;
+use Illuminate\Support\Collection;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -52,6 +53,19 @@ class OrderRepository implements OrderRepositoryInterface
             'phone' => $orderDetailData->phone,
             'address' => $orderDetailData->address
         ]);
+    }
+
+    /**
+     * @param array $relationships
+     * @return Collection
+     */
+    public function getAwaitingOrders(array $relationships = []) : Collection
+    {
+        if ($relationships) {
+            return Order::with($relationships)->where('status', OrderStatusEnum::AWAITING)->get();
+        } else {
+            return Order::where('status', OrderStatusEnum::AWAITING)->get();
+        }
     }
 
 }

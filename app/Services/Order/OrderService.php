@@ -2,12 +2,12 @@
 
 namespace App\Services\Order;
 
-use App\Enums\OrderStatusEnum;
-use App\Models\Order;
+use App\Http\Resources\PreOrderResource;
 use App\Repositories\Cart\CartRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoriesInterface;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use App\Traits\ApiResponder;
@@ -105,9 +105,28 @@ class OrderService implements OrderServiceInterface
         }
     }
 
-    public function getAwaitingOrders()
+
+    /**
+     * @param array $with
+     * @return Collection
+     */
+    public function getAwaitingOrders(array $relationships = []) : Collection
     {
-        return Order::where('status', OrderStatusEnum::AWAITING)->get();
+        return $this->orderRepository->getAwaitingOrders($relationships);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getAwaitingOrdersJson() : JsonResponse
+    {
+        $awaitingOrders = $this->getAwaitingOrders(
+            ['orderDetail', 'orderDetail.order', 'orderItems', 'orderItems.product', 'orderItems.product.category']
+        );
+
+        $responseData = PreOrderResource::collection($awaitingOrders);
+
+        return response()->json($responseData);
     }
 
 }

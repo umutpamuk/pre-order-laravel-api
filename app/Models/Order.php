@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
@@ -49,10 +50,10 @@ class Order extends Model
     }
 
     /**
-     * @return HasMany
+     * @return HasOne
      */
-    public function orderDetails() : HasMany
+    public function orderDetail(): HasOne
     {
-        return $this->hasMany(OrderDetail::class);
+        return $this->hasOne(OrderDetail::class);
     }
 }
