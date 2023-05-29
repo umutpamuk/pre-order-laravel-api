@@ -6,6 +6,9 @@ use App\Http\Controllers\PreOrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,10 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::group(['controller' => AuthController::class], function () {
-        Route::post('/auth/register', 'createUser')->name('auth.register');
-        Route::post('/auth/login', 'loginUser')->name('auth.login');
-    });
+    Route::post('/auth/login', [LoginController::class, 'login']);
+    Route::post('/auth/register', [RegisterController::class, 'register']);
 
     Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
