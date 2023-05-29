@@ -55,6 +55,12 @@ Veritabanına demo verilerin oluşturun
   php artisan db:seed
 ```
 
+
+Test İşlemini başlat
+```bash
+  php artisan test
+```
+
 ## API Dökümantasyonu
 
 
