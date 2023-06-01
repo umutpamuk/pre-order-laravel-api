@@ -60,7 +60,7 @@ class UserRepository implements UserRepositoryInterface
      * @param array $columns
      * @return User[]
      */
-    public function all(array $columns = ['*'])
+    public function all(array $columns = ['*']) : array
     {
         return $this->getBuilder()->get($columns);
     }

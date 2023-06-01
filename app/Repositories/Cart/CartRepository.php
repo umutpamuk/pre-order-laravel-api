@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CartRepository implements CartRepositoryInterface
 {
+
     /**
      * @param string $token
      * @return array|mixed
@@ -43,9 +44,9 @@ class CartRepository implements CartRepositoryInterface
 
     /**
      * @param int $productId
-     * @return mixed
+     * @return Product|null
      */
-    public function findOrFail(int $productId)
+    public function findOrFail(int $productId) : ?Product
     {
         return Product::findOrFail($productId);
     }
@@ -54,7 +55,7 @@ class CartRepository implements CartRepositoryInterface
      * @param string $token
      * @return array|null
      */
-    public function list(string $token)
+    public function list(string $token) : ?array
     {
         $carts = $this->get($token) ?? [];
 

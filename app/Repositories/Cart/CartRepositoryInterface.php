@@ -17,7 +17,7 @@ interface CartRepositoryInterface
      * @param int $expTime
      * @return mixed
      */
-    public function put(string $token, array $cart, int $expTime = 60);
+    public function put(string $token, array $cart, int $expTime = 600);
 
     /**
      * @param int $productId
