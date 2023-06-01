@@ -28,4 +28,15 @@ class LoginRequest extends FormRequest
             'password' => 'required',
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function form(): array
+    {
+        return [
+            'email' => $this->input('email'),
+            'password' => $this->input('password'),
+        ];
+    }
 }
