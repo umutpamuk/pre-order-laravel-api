@@ -67,13 +67,4 @@ class UserService implements UserServiceInterface
     {
         return Auth::attempt(['email' => $data['email'], 'password' => $data['password']]);
     }
-
-    /**
-     * @param array $data
-     * @return User
-     */
-    public function register(array $data): User
-    {
-        return $this->userRepository->create($data);
-    }
 }

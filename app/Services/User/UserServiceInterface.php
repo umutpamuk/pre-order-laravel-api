@@ -36,10 +36,4 @@ interface UserServiceInterface
      * @return bool
      */
     public function login(array $data): bool;
-
-    /**
-     * @param array $data
-     * @return User
-     */
-    public function register(array $data): User;
 }
