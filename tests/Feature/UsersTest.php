@@ -20,7 +20,7 @@ class UsersTest extends TestCase
         ];
 
         $this->post(route('register'), $formData)
-            ->assertStatus(200);
+            ->assertStatus(201);
     }
 
     /** @test */
