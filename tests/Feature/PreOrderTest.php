@@ -12,8 +12,11 @@ use Tests\TestCase;
 class PreOrderTest extends TestCase
 {
     use WithFaker;
-    /** @test */
-    public function test__post_pre_order()
+
+    /**
+     * @return void
+     */
+    public function test__post_pre_order() : void
     {
         $product = Product::first();
         $user    = User::first();
@@ -44,8 +47,11 @@ class PreOrderTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
-    public function test_get_pre_order()
+
+    /**
+     * @return void
+     */
+    public function test_get_pre_order() : void
     {
         $product = Product::first();
         $user    = User::first();
@@ -80,8 +86,11 @@ class PreOrderTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
-    public function test_post_pre_order_approve()
+
+    /**
+     * @return void
+     */
+    public function test_post_pre_order_approve() : void
     {
         $product = Product::first();
         $user    = User::first();

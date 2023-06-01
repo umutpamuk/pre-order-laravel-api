@@ -6,8 +6,10 @@ use Tests\TestCase;
 
 class ProductsTest extends TestCase
 {
-    /** @test */
-    public function test_get_products()
+    /**
+     * @return void
+     */
+    public function test_get_products() : void
     {
         $response = $this->get(route('products.index'))
             ->assertStatus(200);
@@ -26,8 +28,10 @@ class ProductsTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function test_get_products_available()
+    /**
+     * @return void
+     */
+    public function test_get_products_available() : void
     {
         $response = $this->get(route('products.available'))
             ->assertStatus(200);

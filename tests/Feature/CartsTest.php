@@ -9,8 +9,10 @@ use Tests\TestCase;
 
 class CartsTest extends TestCase
 {
-    /** @test */
-    public function test_cart_add()
+    /**
+     * @return void
+     */
+    public function test_cart_add() : void
     {
         $product = Product::first();
         $user    = User::first();
@@ -29,8 +31,10 @@ class CartsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
-    public function test_cart_list()
+    /**
+     * @return void
+     */
+    public function test_cart_list() : void
     {
         $user = User::first();
 
@@ -43,8 +47,10 @@ class CartsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
-    public function test_cart_update()
+    /**
+     * @return void
+     */
+    public function test_cart_update() : void
     {
         $product = Product::first();
         $user    = User::first();
@@ -72,8 +78,10 @@ class CartsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /** @test */
-    public function test_cart_remove()
+    /**
+     * @return void
+     */
+    public function test_cart_remove() : void
     {
         $product = Product::first();
         $user    = User::first();
