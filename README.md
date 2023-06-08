@@ -11,13 +11,13 @@
 Projeyi klonlayın
 
 ```bash
-  git clone git@github.com:umutpamuk/OkulComTr.git
+  git clone git@github.com:umutpamuk/pre-order-laravel-api.git
 ```
 
 Proje dizinine gidin
 
 ```bash
-  cd OkulComTr
+  cd pre-order-laravel-api
 ```
 
 Gerekli paketleri yükleyin
@@ -39,9 +39,9 @@ DB_DATABASE={DATABASE}
 DB_USERNAME={USERNAME}
 DB_PASSWORD={PASSWORD}
 
-TWILIO_SID=AC8450b5db3a8484df19e37fe40b31257a
-TWILIO_TOKEN=40a1e15fe4b9f63d1ee965b07c4a6c2a
-TWILIO_FROM=+15005550006
+TWILIO_SID=#
+TWILIO_TOKEN=#
+TWILIO_FROM=#
 ```
 
 Tabloları oluşturun
